@@ -5,9 +5,14 @@ const path = require("path")
 const app = express();
 
 app.use(express.static(path.join(__dirname, "static")))
+app.use("/auth", require("./server/routers/authentication"))
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "html", "index.html"))
+})
+
+app.get("*", (req, res) => {
+    res.send("404 Not Found")
 })
 
 app.listen(3005, () => {
